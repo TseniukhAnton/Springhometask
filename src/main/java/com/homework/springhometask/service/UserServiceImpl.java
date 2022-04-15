@@ -1,29 +1,36 @@
 package com.homework.springhometask.service;
 
+import com.homework.springhometask.converter.UserConverter;
+import com.homework.springhometask.dto.UserDto;
 import com.homework.springhometask.model.User;
 import com.homework.springhometask.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserConverter userConverter;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
+        this.userConverter = new UserConverter();
     }
 
     @Override
-    public User getById(Long id) {
-        return userRepository.getById(id);
+    public UserDto getById(Long id) {
+        User user = userRepository.getById(id);
+        return userConverter.convert(user);
     }
 
-    public User getByUsername(String username) {
-        return userRepository.getByUsername(username);
+    public UserDto getByUsername(String username) {
+        User user = userRepository.getByUsername(username);
+        return userConverter.convert(user);
     }
 
     @Override
@@ -32,13 +39,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserDto> getAll() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map(userConverter::convert).collect(Collectors.toList());
     }
 
     @Override
-    public User save(User user) {
+    public UserDto save(User user) {
         userRepository.save(user);
-        return user;
+        return userConverter.convert(user);
     }
 }

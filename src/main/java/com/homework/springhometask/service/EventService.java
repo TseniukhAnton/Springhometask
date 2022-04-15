@@ -1,15 +1,16 @@
 package com.homework.springhometask.service;
 
+import com.homework.springhometask.dto.EventDto;
 import com.homework.springhometask.model.Event;
 
 import java.util.List;
 
 public interface EventService {
-    Event getById(Long id);
+    EventDto getById(Long id);
 
     void deleteById(Long id);
 
-    List<Event> getAll();
+    List<EventDto> getAll();
 
-    Event save(Event event);
+    EventDto save(Event event);
 }

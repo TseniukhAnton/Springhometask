@@ -1,5 +1,7 @@
 package com.homework.springhometask.service;
 
+import com.homework.springhometask.converter.FileConverter;
+import com.homework.springhometask.dto.FileDto;
 import com.homework.springhometask.model.File;
 import com.homework.springhometask.model.User;
 import com.homework.springhometask.repository.FileRepository;
@@ -7,18 +9,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
-public class FileServiceImpl implements FileService{
-    FileRepository fileRepository;
+public class FileServiceImpl implements FileService {
+    private final FileRepository fileRepository;
+    private final FileConverter fileConverter;
 
     @Autowired
     public FileServiceImpl(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
+        this.fileConverter = new FileConverter();
     }
 
     @Override
-    public File getById(Long id) {
-        return fileRepository.getById(id);
+    public FileDto getById(Long id) {
+        File file = fileRepository.getById(id);
+        return fileConverter.convert(file);
     }
 
     @Override
@@ -26,23 +33,26 @@ public class FileServiceImpl implements FileService{
         fileRepository.deleteById(id);
     }
 
-    public File getFileByName(String fileName, User user) {
-        return fileRepository.getFileByName(fileName, user);
+    public FileDto getByNameAndUser(String fileName, User user) {
+        File file = fileRepository.getByNameAndUser(fileName, user);
+        return fileConverter.convert(file);
     }
 
-    public List<File> getUserFiles(User user) {
-        return fileRepository.getUserFiles(user);
-    }
-
-    @Override
-    public List<File> getAll() {
-        return fileRepository.findAll();
+    public List<FileDto> getUserFiles(User user) {
+        List<File> files = fileRepository.getByUser(user);
+        return files.stream().map(fileConverter::convert).collect(Collectors.toList());
     }
 
     @Override
-    public File save(File file) {
+    public List<FileDto> getAll() {
+        List<File> files = fileRepository.findAll();
+        return files.stream().map(fileConverter::convert).collect(Collectors.toList());
+    }
+
+    @Override
+    public FileDto save(File file) {
         fileRepository.save(file);
-        return file;
+        return fileConverter.convert(file);
     }
 
 }

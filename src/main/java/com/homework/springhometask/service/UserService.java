@@ -1,16 +1,17 @@
 package com.homework.springhometask.service;
 
+import com.homework.springhometask.dto.UserDto;
 import com.homework.springhometask.model.User;
 
 import java.util.List;
 
 public interface UserService {
-    User getById(Long id);
+    UserDto getById(Long id);
 
     void deleteById(Long id);
 
-    List<User> getAll();
+    List<UserDto> getAll();
 
-    User save(User user);
+    UserDto save(User user);
 
 }

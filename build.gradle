@@ -21,6 +21,9 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.19'
+    implementation group: 'org.springframework', name: 'spring-core', version: '5.3.19'
+    implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.3.19'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     compileOnly 'org.projectlombok:lombok'
