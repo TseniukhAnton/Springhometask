@@ -1,6 +1,7 @@
 package com.homework.springhometask.service;
 
 import com.homework.springhometask.dto.UserDto;
+import com.homework.springhometask.model.Role;
 import com.homework.springhometask.model.User;
 
 import java.util.List;
@@ -18,5 +19,7 @@ public interface UserService {
     List<UserDto> getAll();
 
     UserDto save(User user);
+
+    UserDto update(User user, Role role);
 
 }

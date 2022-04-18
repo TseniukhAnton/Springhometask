@@ -64,4 +64,13 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         return userConverter.convert(user);
     }
+
+    @Override
+    public UserDto update(User user, Role role) {
+        user.setRole(role);
+        userRepository.save(user);
+        return userConverter.convert(user);
+    }
+
+
 }
