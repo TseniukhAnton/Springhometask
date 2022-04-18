@@ -23,3 +23,5 @@ create table users
     password varchar(25) not null
 );
 
+alter table users add column role varchar(25) default 'USER';
+

@@ -6,7 +6,12 @@ import com.homework.springhometask.model.User;
 import java.util.List;
 
 public interface UserService {
+
+    UserDto register(User user);
+
     UserDto getById(Long id);
+
+    UserDto getByUsername(String username);
 
     void deleteById(Long id);
 

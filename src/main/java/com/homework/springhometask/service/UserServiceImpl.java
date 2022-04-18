@@ -2,9 +2,12 @@ package com.homework.springhometask.service;
 
 import com.homework.springhometask.converter.UserConverter;
 import com.homework.springhometask.dto.UserDto;
+import com.homework.springhometask.model.Role;
 import com.homework.springhometask.model.User;
 import com.homework.springhometask.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,17 +17,29 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final UserConverter userConverter;
+    private final BCryptPasswordEncoder passwordEncoder;
+    private final UserConverter userConverter = new UserConverter();
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.userConverter = new UserConverter();
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public UserDto register(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User registeredUser = userRepository.save(user);
+
+        return userConverter.convert(registeredUser);
     }
 
     @Override
     public UserDto getById(Long id) {
         User user = userRepository.getById(id);
+        if (user == null){
+            throw new UsernameNotFoundException("No user found!!!");
+        }
         return userConverter.convert(user);
     }
 
