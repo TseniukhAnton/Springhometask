@@ -1,6 +1,7 @@
 package com.homework.springhometask.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
@@ -8,4 +9,5 @@ import lombok.Data;
 public class UserDto {
     private Long id;
     private String username;
+    private String password;
 }

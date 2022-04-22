@@ -2,6 +2,7 @@ package com.homework.springhometask.converter;
 
 import com.homework.springhometask.dto.UserDto;
 import com.homework.springhometask.model.User;
+import org.springframework.context.annotation.Bean;
 
 public class UserConverter {
 

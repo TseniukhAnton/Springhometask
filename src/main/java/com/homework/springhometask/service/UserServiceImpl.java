@@ -18,12 +18,13 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final UserConverter userConverter = new UserConverter();
+    private final UserConverter userConverter;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userConverter = new UserConverter();
     }
 
     @Override
