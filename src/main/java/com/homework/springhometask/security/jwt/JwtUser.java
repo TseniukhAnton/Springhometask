@@ -1,6 +1,5 @@
-package com.homework.springhometask.security;
+package com.homework.springhometask.security.jwt;
 
-import com.homework.springhometask.dto.UserDto;
 import com.homework.springhometask.model.Status;
 import com.homework.springhometask.model.User;
 import lombok.Data;
@@ -12,14 +11,14 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
-public class SecurityUser implements UserDetails {
+public class JwtUser implements UserDetails {
 
     private final String username;
     private final String password;
     private final List<SimpleGrantedAuthority> authorities;
     private final boolean isActive;
 
-    public SecurityUser(String username, String password, List<SimpleGrantedAuthority> authorities, boolean isActive) {
+    public JwtUser(String username, String password, List<SimpleGrantedAuthority> authorities, boolean isActive) {
         this.username = username;
         this.password = password;
         this.authorities = authorities;

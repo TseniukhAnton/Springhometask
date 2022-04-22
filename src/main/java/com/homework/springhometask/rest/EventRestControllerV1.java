@@ -1,8 +1,7 @@
 package com.homework.springhometask.rest;
 
-import com.homework.springhometask.dto.UserDto;
-import com.homework.springhometask.model.User;
-import com.homework.springhometask.service.UserService;
+import com.homework.springhometask.dto.EventDto;
+import com.homework.springhometask.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,21 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/users")
-public class UserRestController {
-    private final UserService userService;
-
+@RequestMapping(value = "/api/v1/events")
+public class EventRestControllerV1 {
+    private final EventService eventService;
     @Autowired
-    public UserRestController(UserService userService) {
-        this.userService = userService;
+    public EventRestControllerV1(EventService eventService) {
+        this.eventService = eventService;
     }
 
     @GetMapping(value = "{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable(name = "id") Long id){
-        UserDto user = userService.getById(id);
-        if(user == null){
+    public ResponseEntity<EventDto> getEventById(@PathVariable(name = "id") Long id){
+        EventDto event = eventService.getById(id);
+        if(event == null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(event, HttpStatus.OK);
     }
 }

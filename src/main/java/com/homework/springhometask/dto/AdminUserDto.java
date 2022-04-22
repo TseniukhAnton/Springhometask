@@ -1,13 +1,12 @@
 package com.homework.springhometask.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDto {
+public class AdminUserDto {
     private Long id;
     private String username;
-    //private String password;
+    private String status;
 }

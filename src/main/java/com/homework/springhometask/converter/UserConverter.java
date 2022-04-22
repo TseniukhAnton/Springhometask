@@ -5,7 +5,6 @@ import com.homework.springhometask.model.User;
 import org.springframework.context.annotation.Bean;
 
 public class UserConverter {
-
     public UserDto convert(User user) {
         UserDto dto = new UserDto();
         dto.setId(user.getId());

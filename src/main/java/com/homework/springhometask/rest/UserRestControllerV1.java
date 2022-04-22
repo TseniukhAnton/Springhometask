@@ -1,8 +1,6 @@
 package com.homework.springhometask.rest;
 
-import com.homework.springhometask.dto.FileDto;
 import com.homework.springhometask.dto.UserDto;
-import com.homework.springhometask.service.FileService;
 import com.homework.springhometask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,20 +11,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/files")
-public class FileRestController {
-    private final FileService fileService;
+@RequestMapping(value = "/api/v1/users")
+public class UserRestControllerV1 {
+    private final UserService userService;
+
     @Autowired
-    public FileRestController(FileService fileService) {
-        this.fileService = fileService;
+    public UserRestControllerV1(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping(value = "{id}")
-    public ResponseEntity<FileDto> getFileById(@PathVariable(name = "id") Long id){
-        FileDto file = fileService.getById(id);
-        if(file == null){
+    public ResponseEntity<UserDto> getUserById(@PathVariable(name = "id") Long id){
+        UserDto user = userService.getById(id);
+        if(user == null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(file, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

@@ -25,4 +25,6 @@ create table users
 
 alter table users add column role varchar(25) default 'USER';
 alter table users add column status varchar(25) default 'ACTIVE';
+alter table users modify column password varchar(255);
+
 
