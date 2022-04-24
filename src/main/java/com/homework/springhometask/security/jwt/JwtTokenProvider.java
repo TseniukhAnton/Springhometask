@@ -23,11 +23,8 @@ public class JwtTokenProvider {
 
     @Value("${jwt.token.secret}")
     private String secret;
-
     @Value("${jwt.token.expired}")
     private long validityInMilliseconds;
-
-
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -66,10 +63,10 @@ public class JwtTokenProvider {
     public String getUsername(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
     }
-
+//&& bearerToken.startsWith("Bearer_")
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
+        if (bearerToken != null ) {
             return bearerToken.substring(7, bearerToken.length());
         }
         return null;
