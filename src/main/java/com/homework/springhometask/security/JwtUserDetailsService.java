@@ -1,8 +1,11 @@
 package com.homework.springhometask.security;
 
+import com.homework.springhometask.dto.UserDto;
 import com.homework.springhometask.model.User;
 import com.homework.springhometask.repository.UserRepository;
 import com.homework.springhometask.security.jwt.JwtUser;
+import com.homework.springhometask.security.jwt.JwtUserFactory;
+import com.homework.springhometask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
+    //private final UserService userService;
     private final UserRepository userRepository;
 
     @Autowired
@@ -27,6 +31,6 @@ public class JwtUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User with username: " + username + " not found");
         }
 
-        return JwtUser.fromUser(user);
+        return JwtUserFactory.create(user);
     }
 }

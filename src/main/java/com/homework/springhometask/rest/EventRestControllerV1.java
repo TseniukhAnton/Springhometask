@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/events")
+@RequestMapping(value = "/api/v1/events/")
 public class EventRestControllerV1 {
     private final EventService eventService;
     @Autowired

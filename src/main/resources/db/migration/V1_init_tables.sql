@@ -20,11 +20,22 @@ create table users
 (
     id bigint auto_increment primary key unique ,
     username varchar(50) not null,
-    password varchar(25) not null
+    password varchar(255) not null,
+    status varchar(25) not null default 'ACTIVE'
 );
 
-alter table users add column role varchar(25) default 'USER';
-alter table users add column status varchar(25) default 'ACTIVE';
-alter table users modify column password varchar(255);
+create table roles
+(
+    id bigint auto_increment primary key unique ,
+    name varchar(50) not null,
+    status varchar(25) not null default 'ACTIVE'
+);
 
-
+create table user_roles
+(
+    user_id bigint,
+    role_id bigint,
+    primary key (user_id,role_id),
+    foreign key (user_id) references users(id) ,
+    foreign key (role_id) references roles(id)
+);

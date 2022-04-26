@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/files")
+@RequestMapping(value = "/api/v1/files/")
 public class FileRestControllerV1 {
     private final FileService fileService;
     @Autowired

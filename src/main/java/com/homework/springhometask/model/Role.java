@@ -1,32 +1,25 @@
 package com.homework.springhometask.model;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import lombok.Data;
 
-import java.util.Date;
+import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-public enum Role {
-    ADMIN(Set.of(Permission.USERS_WRITE, Permission.USERS_READ, Permission.USERS_DELETE)),
-    MODERATOR(Set.of(Permission.USERS_WRITE, Permission.USERS_READ)),
-    USER(Set.of(Permission.USERS_READ));
+@Entity
+@Table(name = "roles")
+@Data
+public class Role extends BaseEntity {
 
-    private final Set<Permission> permissions;
+    @Column(name = "name")
+    private String name;
 
-    Role(Set<Permission> permissions){
-        this.permissions = permissions;
-    }
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    private List<User> users;
 
-    public Set<Permission> getPermissions(){
-        return permissions;
-    }
-
-    public Set<SimpleGrantedAuthority> getAuthorities(){
-        return getPermissions().stream().map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
-                .collect(Collectors.toSet());
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id: " + super.getId() + ", " +
+                "name: " + name + "}";
     }
 }

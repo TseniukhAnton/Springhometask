@@ -3,13 +3,16 @@ package com.homework.springhometask.service;
 import com.homework.springhometask.converter.UserConverter;
 import com.homework.springhometask.dto.UserDto;
 import com.homework.springhometask.model.Role;
+import com.homework.springhometask.model.Status;
 import com.homework.springhometask.model.User;
+import com.homework.springhometask.repository.RoleRepository;
 import com.homework.springhometask.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,19 +20,28 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final UserConverter userConverter;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,BCryptPasswordEncoder passwordEncoder, UserConverter userConverter) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
-        this.userConverter = new UserConverter();
+        this.userConverter = userConverter;
     }
 
     @Override
     public UserDto register(User user) {
+        Role roleUser = roleRepository.findByName("USER");
+        List<Role> userRoles = new ArrayList<>();
+        userRoles.add(roleUser);
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(userRoles);
+        user.setStatus(Status.ACTIVE);
+
         User registeredUser = userRepository.save(user);
 
         return userConverter.convert(registeredUser);
@@ -68,7 +80,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto update(User user, Role role) {
-        user.setRole(role);
+        List<Role> roles = user.getRoles();
+        roles.add(role);
         userRepository.save(user);
         return userConverter.convert(user);
     }
