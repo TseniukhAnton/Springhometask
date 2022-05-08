@@ -3,10 +3,12 @@ package com.homework.springhometask.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
+//@RequiredArgsConstructor
 @Entity
 @Table(name = "events")
 public class Event {

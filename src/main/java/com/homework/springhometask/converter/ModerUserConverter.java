@@ -4,7 +4,9 @@ import com.homework.springhometask.dto.AdminUserDto;
 import com.homework.springhometask.dto.ModerUserDto;
 import com.homework.springhometask.dto.UserDto;
 import com.homework.springhometask.model.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ModerUserConverter {
     public ModerUserDto convert(UserDto user) {
         ModerUserDto dto = new ModerUserDto();

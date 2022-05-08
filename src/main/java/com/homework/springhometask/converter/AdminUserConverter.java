@@ -3,7 +3,9 @@ package com.homework.springhometask.converter;
 import com.homework.springhometask.dto.AdminUserDto;
 import com.homework.springhometask.dto.UserDto;
 import com.homework.springhometask.model.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AdminUserConverter {
     public AdminUserDto convert(UserDto user) {
         AdminUserDto dto = new AdminUserDto();

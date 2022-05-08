@@ -1,6 +1,5 @@
 package com.homework.springhometask.security.jwt;
 
-import com.homework.springhometask.dto.UserDto;
 import com.homework.springhometask.model.Role;
 import com.homework.springhometask.model.Status;
 import com.homework.springhometask.model.User;

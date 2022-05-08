@@ -1,13 +1,16 @@
 package com.homework.springhometask.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
-
+@Data
 @Entity
 @Table(name = "roles")
-@Data
+@EqualsAndHashCode(callSuper = true)
+//@RequiredArgsConstructor
 public class Role extends BaseEntity {
 
     @Column(name = "name")

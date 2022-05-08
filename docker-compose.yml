@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:5.7
+
+    environment:
+      MYSQL_DATABASE: hometaskspring
+#      MYSQL_USER: test
+#      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3307"
+    volumes:
+      - my-db:/var/lib/mysql
+
+  bootdocker:
+    depends_on:
+      - database
+    image: tseniukh/springtask
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: on-failure
+    ports:
+      - "8080:8080"
+#    entrypoint: ["java", "org.springframework.boot.loader.JarLauncher"]
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3307/hometaskspring
+#      SPRING_DATASOURCE_USERNAME: test
+#      SPRING_DATASOURCE_PASSWORD: test
+    volumes:
+      - /data/bootdocker
+    stdin_open: true
+    tty: true
+
+volumes:
+  my-db:

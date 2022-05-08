@@ -2,12 +2,16 @@ package com.homework.springhometask.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
 @Data
+@RequiredArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity{

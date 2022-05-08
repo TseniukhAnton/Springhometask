@@ -2,10 +2,12 @@ package com.homework.springhometask.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
+//@RequiredArgsConstructor
 @Entity
 @Table(name = "files")
 public class File {
